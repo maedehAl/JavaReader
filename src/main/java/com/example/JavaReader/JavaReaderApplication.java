@@ -63,31 +63,29 @@ public class JavaReaderApplication {
             for (int i = 1; i < sheetAt.getPhysicalNumberOfRows(); i++) {
                 row = sheetAt.getRow(i);
                 for (int j=0;j<row.getLastCellNum();j++){
-                    cell = row.getCell(i);
+                    cell = row.getCell(j);
                     System.out.println(cell);
                 }
-
             }
-
-
         }
 
 
-//        Connection conn = null;
-//        try {
-//            Class.forName("org.mysql.Driver");
-//            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/rd", "root", "123456");
-//            // Statement stm= conn.createStatement();
-//            // System.out.println(stm);
-//            System.out.println(conn);
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//
-//        }
-//        finally {
-//
-//        }
+        Connection conn = null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/rd", "root", "123456");
+             Statement stm= conn.createStatement();
+             stm.executeUpdate("CREATE table ACCOUNT(id INREGER NOT NULL AUTO_INCREMENT)");
+            // System.out.println(stm);
+            System.out.println(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+
+        }
+        finally {
+
+        }
     }
 }
