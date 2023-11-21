@@ -20,6 +20,11 @@ public class Insertion {
         try (InputStream inp = new FileInputStream("Account.xls")) {
             DataSource dataSource = SqlConn.getDataSource();
             conn = dataSource.getConnection();
+
+//            stmt.executeUpdate("CREATE table Customer(id INTEGER NOT NULL AUTO_INCREMENT primary key ,CUSTOMER_NAME varchar(50),CUSTOMER_SURNAME varchar(50), CUSTOMER_ADDRESS varchar(50), CUSTOMER_ZIP_CODE varchar(255), CUSTOMER_NATIONAL_ID Long,CUSTOMER_BIRTH_DATE varchar(255))");
+//            stmt.executeUpdate("CREATE table ACCOUNT(id INTEGER NOT NULL AUTO_INCREMENT primary key ,ACCOUNT_NUMBER varchar(50),ACCOUNT_TYPE varchar(50), ACCOUNT_LIMIT varchar(50), ACCOUNT_OPEN_DATE varchar(255), ACCOUNT_CUSTOMER_ID INTEGER REFERENCES customer (id),ACCOUNT_BALANCE LONG)");
+
+
             Workbook wb2 = WorkbookFactory.create(inp);
             Sheet sheetAt = wb2.getSheetAt(0);
 //                for (Row row : sheetAt) {
@@ -33,10 +38,12 @@ public class Insertion {
                     String ACCOUNT_CUSTOMER_ID = String.valueOf(row.getCell(4));
                     String ACCOUNT_BALANCE = String.valueOf(row.getCell(5));
 
+
                     String sql = "INSERT INTO ACCOUNT(ACCOUNT_NUMBER,ACCOUNT_TYPE,ACCOUNT_LIMIT,ACCOUNT_OPEN_DATE,ACCOUNT_CUSTOMER_ID,ACCOUNT_BALANCE)" +
                             "VALUES(?,?,?,?,?,?)";
                     try {
-//                            stmt.executeUpdate("CREATE table ACCOUNT(id INTEGER NOT NULL AUTO_INCREMENT primary key ,ACCOUNT_NUMBER varchar(50),ACCOUNT_TYPE varchar(50), ACCOUNT_LIMIT varchar(50), ACCOUNT_OPEN_DATE varchar(255), ACCOUNT_CUSTOMER_ID INTEGER,ACCOUNT_BALANCE LONG)");
+
+//                            stmt.executeUpdate("CREATE table ACCOUNT(id INTEGER NOT NULL AUTO_INCREMENT primary key ,ACCOUNT_NUMBER varchar(50),ACCOUNT_TYPE varchar(50), ACCOUNT_LIMIT varchar(50), ACCOUNT_OPEN_DATE varchar(255), ACCOUNT_CUSTOMER_ID INTEGER REFERENCES customer (id),ACCOUNT_BALANCE LONG)");
                         stmt = conn.prepareStatement(sql);
                         stmt.setString(1, ACCOUNT_NUMBER);
                         stmt.setString(2, ACCOUNT_TYPE);
@@ -73,7 +80,8 @@ public class Insertion {
 
                     String sql = "INSERT INTO Customer(CUSTOMER_NAME,CUSTOMER_SURNAME,CUSTOMER_ADDRESS,CUSTOMER_ZIP_CODE,CUSTOMER_NATIONAL_ID,CUSTOMER_BIRTH_DATE)" +
                             "VALUES(?,?,?,?,?,?)";
-                    stmt.executeUpdate("CREATE table Customer(id INTEGER NOT NULL AUTO_INCREMENT primary key ,CUSTOMER_NAME varchar(50),CUSTOMER_SURNAME varchar(50), CUSTOMER_ADDRESS varchar(50), CUSTOMER_ZIP_CODE varchar(255), CUSTOMER_NATIONAL_ID Long,CUSTOMER_BIRTH_DATE varchar(255))");
+
+                    //                    stmt.executeUpdate("ALTER TABLE account add FOREIGN KEY (ACCOUNT_CUSTOMER_ID) REFERENCES customer (id)");
 
                     PreparedStatement preparedStatement = conn.prepareStatement(sql);
                     preparedStatement.setString(1, String.valueOf(CUSTOMER_NAME));
