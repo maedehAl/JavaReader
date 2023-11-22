@@ -1,2 +1,4 @@
-package com.example.JavaReader;public class SqlConnection {
+package com.example.JavaReader;
+
+public class SqlConnection {
 }

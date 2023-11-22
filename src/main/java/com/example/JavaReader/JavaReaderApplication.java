@@ -13,12 +13,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 
 @SpringBootApplication
 public class JavaReaderApplication {
     public static void main(String[] args) throws IOException {
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Bank", "root", "123456")) {
+        ResourceBundle bundle = ResourceBundle.getBundle("DB");
+        try (Connection conn = DriverManager.getConnection(bundle.getString("DB_URL"), bundle.getString("USER"), bundle.getString("PASS"))) {
 //            File file = new File("Account.xlsx");
             Workbook wb = new HSSFWorkbook();
             try (FileOutputStream accountFile = new FileOutputStream("Account.xls")) {
@@ -122,8 +124,8 @@ public class JavaReaderApplication {
                         String sql = "INSERT INTO ACCOUNT(ACCOUNT_NUMBER,ACCOUNT_TYPE,ACCOUNT_LIMIT,ACCOUNT_OPEN_DATE,ACCOUNT_CUSTOMER_ID,ACCOUNT_BALANCE)" +
                                 "VALUES(?,?,?,?,?,?)";
                         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-//                            stmt.executeUpdate("CREATE table ACCOUNT(id INTEGER NOT NULL AUTO_INCREMENT primary key ,ACCOUNT_NUMBER varchar(50),ACCOUNT_TYPE varchar(50), ACCOUNT_LIMIT varchar(50), ACCOUNT_OPEN_DATE varchar(255), ACCOUNT_CUSTOMER_ID INTEGER,ACCOUNT_BALANCE LONG)");
-//                            stmt.executeUpdate("CREATE table Customer(id INTEGER NOT NULL AUTO_INCREMENT primary key ,CUSTOMER_NAME varchar(50),CUSTOMER_SURNAME varchar(50), CUSTOMER_ADDRESS varchar(50), CUSTOMER_ZIP_CODE varchar(255), CUSTOMER_NATIONAL_ID Long,CUSTOMER_BIRTH_DATE LONG)");
+                            stmt.executeUpdate("CREATE table ACCOUNT(id INTEGER NOT NULL AUTO_INCREMENT primary key ,ACCOUNT_NUMBER varchar(50),ACCOUNT_TYPE varchar(50), ACCOUNT_LIMIT varchar(50), ACCOUNT_OPEN_DATE varchar(255), ACCOUNT_CUSTOMER_ID INTEGER,ACCOUNT_BALANCE LONG)");
+                            stmt.executeUpdate("CREATE table Customer(id INTEGER NOT NULL AUTO_INCREMENT primary key ,CUSTOMER_NAME varchar(50),CUSTOMER_SURNAME varchar(50), CUSTOMER_ADDRESS varchar(50), CUSTOMER_ZIP_CODE varchar(255), CUSTOMER_NATIONAL_ID Long,CUSTOMER_BIRTH_DATE LONG)");
 
                             stmt.setString(1, ACCOUNT_NUMBER);
                             stmt.setString(2, ACCOUNT_TYPE);
