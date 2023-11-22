@@ -5,7 +5,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -25,9 +24,9 @@ public class CreateFiles {
             headerRow.createCell(5).setCellValue(String.valueOf(AccountHeaders.ACCOUNT_BALANCE));
 
 //rows
-//            for (int i = 1; i < 7; i++) {
+
+
             Row row = sheet.createRow(1);
-//                for (int j = 0; j < headerRow.getLastCellNum(); j++) {
             row.createCell(0).setCellValue("123654");
             row.createCell(1).setCellValue("Type");
             row.createCell(2).setCellValue("123123123123");
@@ -46,8 +45,6 @@ public class CreateFiles {
 //            }
 
             wb.write(accountFile);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -78,4 +75,4 @@ public class CreateFiles {
             throw new RuntimeException(e);
         }
     }
-    }
+}
