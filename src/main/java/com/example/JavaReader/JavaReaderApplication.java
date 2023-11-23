@@ -32,6 +32,10 @@ public class JavaReaderApplication {
             createFiles.createCustomer();
             insertion.insertCustomer();
 
+            ReadDB readDB=new ReadDB();
+//            while (readDB.n)
+            System.out.println(readDB);
+
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
