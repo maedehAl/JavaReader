@@ -1,11 +1,7 @@
 package com.example.JavaReader;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.io.File;
-import java.util.HashMap;
 
 
 @SpringBootApplication
@@ -13,29 +9,18 @@ public class JavaReaderApplication {
     public static void main(String[] args) {
 
 
-
         CreateFiles createFiles = new CreateFiles();
         Insertion insertion = new Insertion();
         try {
-            ObjectMapper mapper = new ObjectMapper();
-            AccountDto accountDto = new AccountDto();
-            accountDto.setAccountNumber("55785786767687");
-            HashMap<String,Integer> salary=new HashMap<>();
-            mapper.writeValue(new File("Account.json"),accountDto);
-            String s = mapper.writeValueAsString(accountDto);
-            System.out.println(s);
-//
             createFiles.createAccount();
             insertion.insertAccount();
 
 //                customer
             createFiles.createCustomer();
             insertion.insertCustomer();
-
-            ReadDB readDB=new ReadDB();
-//            while (readDB.n)
-            System.out.println(readDB);
-
+//json file
+            CreateJson createAccountJson = new CreateJson();
+            createAccountJson.AccountJson();
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
