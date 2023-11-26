@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.File;
+import java.sql.ResultSet;
 import java.util.HashMap;
 
 
@@ -31,10 +32,6 @@ public class JavaReaderApplication {
 //                customer
             createFiles.createCustomer();
             insertion.insertCustomer();
-
-            ReadDB readDB=new ReadDB();
-//            while (readDB.n)
-            System.out.println(readDB);
 
 
         } catch (Exception e) {
