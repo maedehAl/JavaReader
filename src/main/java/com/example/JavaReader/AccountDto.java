@@ -18,5 +18,4 @@ public class AccountDto {
     private String accountCustomerId;
     private String accountBalance;
     private HashMap<String, Integer> salary;
-
 }

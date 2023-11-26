@@ -9,12 +9,12 @@ import java.sql.SQLException;
 public class ReadDB {
 
 
-    public ResultSet ReadFromDB() throws SQLException {
+    public ResultSet ReadFromDB(String query) throws SQLException {
         DataSource dataSource = SqlConn.getDataSource();
         Connection conn = dataSource.getConnection();
         ResultSet resultSet = null;
         PreparedStatement statement = null;
-        statement = conn.prepareStatement("select * from account");
+        statement = conn.prepareStatement(query);
         resultSet = statement.executeQuery();
         return resultSet;
     }
