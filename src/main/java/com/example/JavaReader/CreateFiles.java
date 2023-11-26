@@ -34,7 +34,7 @@ public class CreateFiles {
             row.createCell(4).setCellValue("12");
             row.createCell(5).setCellValue("12555");
             ///
-//            row = sheet.createRow(2);
+            row = sheet.createRow(2);
 ////                for (int j = 0; j < headerRow.getLastCellNum(); j++) {
             row.createCell(0).setCellValue("741852");
             row.createCell(1).setCellValue("Type4");

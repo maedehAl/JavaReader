@@ -28,6 +28,9 @@ public class Insertion {
             Workbook wb2 = WorkbookFactory.create(inp);
             Sheet sheetAt = wb2.getSheetAt(0);
 //                for (Row row : sheetAt) {
+            final int batchSize = 5;
+            int count = 0;
+
             for (int i = 1; i <= sheetAt.getLastRowNum(); i++) {
                 Row row = sheetAt.getRow(i);
                 if (row != null) {
@@ -51,12 +54,20 @@ public class Insertion {
                         stmt.setInt(4, ACCOUNT_OPEN_DATE);
                         stmt.setString(5, ACCOUNT_CUSTOMER_ID);
                         stmt.setString(6, ACCOUNT_BALANCE);
-                        stmt.executeUpdate();
+//                        stmt.executeUpdate();
+                        stmt.addBatch();
+                        if (++count % batchSize == 0) {
+                            stmt.executeBatch();
+                        }
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }
                 }
             }
+            stmt.executeBatch();
+//            stmt.close();
+//            conn.close();
+
         } catch (
                 SQLException | IOException e) {
             throw new RuntimeException(e);
